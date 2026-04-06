@@ -26,12 +26,14 @@
 <header class="pt-48 pb-32 px-8 max-w-7xl mx-auto relative z-10">
   <div class="flex flex-col lg:flex-row items-center gap-24">
     <div class="flex-1 space-y-10 reveal-up">
-      <div
-        class="inline-flex items-center px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-[10px] font-bold tracking-[0.2em] uppercase">
-        Systems Architecture v2.0
-      </div>
       <h1 class="text-6xl lg:text-8xl font-black tracking-tighter text-on-surface leading-[0.95]">
-        ATS-Proof Your <span class="text-secondary block">Digital Identity.</span>
+        ATS-Proof Your 
+        <span class="text-secondary block relative w-fit mt-1">
+          Digital Identity.
+          <svg class="absolute w-full h-4 -bottom-2 left-0 text-yellow-400" viewBox="0 0 200 20" preserveAspectRatio="none">
+            <path d="M0,10 Q100,20 200,5" stroke="currentColor" stroke-width="6" fill="transparent" stroke-linecap="round"/>
+          </svg>
+        </span>
       </h1>
       <p class="text-xl text-on-surface-variant max-w-xl leading-relaxed font-medium">
         Stop being filtered out by archaic robots. Our AI architect reconstructs your trajectory to match high-value
@@ -380,45 +382,50 @@
 </section>
 
 <!-- Footer -->
-<footer class="bg-white border-t border-slate-100 py-32">
+<footer class="bg-white border-t border-slate-200 py-16 md:py-24">
   <div class="max-w-7xl mx-auto px-8">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-20 mb-32">
-      <div class="col-span-2 md:col-span-1 space-y-8">
-        <div class="text-2xl font-black tracking-tight text-slate-900 uppercase">Jobo Align</div>
-        <p class="text-slate-500 text-sm leading-relaxed font-medium">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
+      <div class="col-span-1 md:col-span-2 space-y-6">
+        <div class="text-2xl font-black tracking-tight text-slate-900 font-headline flex items-center gap-2">
+          <span class="w-10 h-8 secondary-gradient rounded flex items-center justify-center text-white text-sm px-2">Jobo</span>
+          Align
+        </div>
+        <p class="text-slate-500 text-sm max-w-sm leading-relaxed">
           Building the future of recruitment with AI-driven precision for the modern digital talent.
         </p>
-        <div class="flex gap-4">
-          <a class="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-secondary hover:text-white transition-all"
-            href="#">
-            <span class="material-symbols-outlined text-lg">share</span>
+        <div class="flex gap-4 pt-2">
+          <a class="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-slate-300 hover:text-slate-600 transition-colors" href="#">
+            <span class="material-symbols-outlined text-[20px]">share</span>
           </a>
-          <a class="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-secondary hover:text-white transition-all"
-            href="#">
-            <span class="material-symbols-outlined text-lg">alternate_email</span>
+          <a class="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-slate-300 hover:text-slate-600 transition-colors" href="#">
+            <span class="material-symbols-outlined text-[20px]">alternate_email</span>
           </a>
         </div>
       </div>
-      <div class="space-y-8">
-        <h6 class="font-black text-slate-900 text-[10px] uppercase tracking-[0.3em]">Module</h6>
-        <ul class="space-y-4 text-sm font-bold text-slate-400">
+      <div class="space-y-6">
+        <h6 class="font-medium text-slate-900 text-sm">Product</h6>
+        <ul class="space-y-4 text-sm text-slate-500">
           <li><a class="hover:text-secondary transition-colors" href="#">Process</a></li>
-          <li><a class="hover:text-secondary transition-colors" href="#">Features</a></li>
-          <li><a class="hover:text-secondary transition-colors" href="#">Licensing</a></li>
+          <li><a class="hover:text-secondary transition-colors" href="#">Engine</a></li>
+          <li><a class="hover:text-secondary transition-colors" href="#">Pricing</a></li>
         </ul>
       </div>
-      <div class="space-y-8">
-        <h6 class="font-black text-slate-900 text-[10px] uppercase tracking-[0.3em]">Protocol</h6>
-        <ul class="space-y-4 text-sm font-bold text-slate-400">
-          <li><a class="hover:text-secondary transition-colors" href="#">About</a></li>
-          <li><a class="hover:text-secondary transition-colors" href="#">Privacy</a></li>
-          <li><a class="hover:text-secondary transition-colors" href="#">Terms</a></li>
+      <div class="space-y-6">
+        <h6 class="font-medium text-slate-900 text-sm">Company</h6>
+        <ul class="space-y-4 text-sm text-slate-500">
+          <li><a class="hover:text-secondary transition-colors" href="#">About Us</a></li>
+          <li><a class="hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+          <li><a class="hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
         </ul>
       </div>
     </div>
-    <div
-      class="border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-      <div>© 2026 Jobo Align</div>
+    <div class="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+      <div>© 2026 Jobo Align. All rights reserved.</div>
+      <div class="flex gap-6">
+        <a class="hover:text-slate-900 transition-colors" href="#">Twitter</a>
+        <a class="hover:text-slate-900 transition-colors" href="#">LinkedIn</a>
+        <a class="hover:text-slate-900 transition-colors" href="#">GitHub</a>
+      </div>
     </div>
   </div>
 </footer>
