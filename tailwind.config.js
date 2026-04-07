@@ -52,7 +52,14 @@ module.exports = {
         "tertiary-container": "#585be6",
         "on-error": "#ffffff",
         "on-tertiary-fixed": "#07006c",
-        "on-secondary-container": "#fefcff"
+        "on-secondary-container": "#fefcff",
+        gradient: {
+          '1': 'var(--gradient-1)',
+          '2': 'var(--gradient-2)',
+          '3': 'var(--gradient-3)',
+          '4': 'var(--gradient-4)',
+          '5': 'var(--gradient-5)',
+        }
       },
       fontFamily: {
         "headline": ["Inter", "sans-serif"],

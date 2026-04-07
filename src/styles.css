@@ -3,7 +3,34 @@
 @tailwind utilities;
 
 @layer base {
+    :root {
+      --gradient-1: #dbe3ff;
+      --gradient-2: #436bc3;
+      --gradient-3: #30429b;
+      --gradient-4: #6a93e3;
+      --gradient-5: #a0bbf6;
+    }
+
+    html, body {
+        overscroll-behavior: none;
+    }
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    
+    html.lenis, html.lenis body {
+        height: auto;
+    }
+
+    .lenis.lenis-smooth {
+        scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+        overflow: hidden;
+    }
 }
 
 @layer utilities {
@@ -44,9 +71,11 @@
     .reveal-up {
         opacity: 0;
         transform: translateY(30px);
+        will-change: transform, opacity;
     }
     .hover-lift {
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, box-shadow;
     }
     .hover-lift:hover {
         transform: translateY(-8px) scale(1.01);
@@ -85,6 +114,28 @@
         background-position: center;
         clip-path: inset(0 0 0 50%);
     }
+    .liquid-mesh-bg {
+        background-color: var(--gradient-3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .blob {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.6;
+        mix-blend-mode: screen;
+        pointer-events: none;
+        will-change: transform;
+    }
+
+    .blob-1 { background: var(--gradient-1); top: -10%; left: -10%; }
+    .blob-2 { background: var(--gradient-2); top: 10%; right: -10%; }
+    .blob-3 { background: var(--gradient-4); bottom: -10%; left: 20%; }
+    .blob-4 { background: var(--gradient-5); bottom: 10%; right: 20%; }
 }
 
 @keyframes float {

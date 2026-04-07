@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, NgZone } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,8 +20,11 @@ export class App implements AfterViewInit, OnDestroy {
   private touchMoveListener: (e: TouchEvent) => void;
   private mouseUpListener: () => void;
   private touchEndListener: () => void;
+  private lenis: Lenis | undefined;
+  private tickerFunc: ((time: number) => void) | undefined;
+  private mouseMoveParallax: ((e: MouseEvent) => void) | undefined;
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     this.mouseMoveListener = (e: MouseEvent) => {
       if (!this.isDragging) return;
       this.updateSlider(e.clientX);
@@ -33,24 +37,84 @@ export class App implements AfterViewInit, OnDestroy {
 
     this.mouseUpListener = () => { this.isDragging = false; };
     this.touchEndListener = () => { this.isDragging = false; };
+    
+    this.mouseMoveParallax = (e: MouseEvent) => {
+        const mouseX = e.clientX / window.innerWidth - 0.5;
+        const mouseY = e.clientY / window.innerHeight - 0.5;
+        
+        gsap.to('#hero-parallax', {
+            duration: 1,
+            rotationY: mouseX * 10,
+            rotationX: -mouseY * 10,
+            ease: "power2.out",
+            overwrite: 'auto'
+        });
+    };
   }
 
   ngAfterViewInit() {
-    this.initHeroParallax();
-    this.initRevealAnimations();
-    this.initComparisonSlider();
-    this.initMeshGradientAnimation();
+    this.ngZone.runOutsideAngular(() => {
+      this.initLenis();
+      this.initAnchorLinks();
+      this.initHeroParallax();
+      this.initRevealAnimations();
+      this.initComparisonSlider();
+      this.initPipelineAnimation();
+      this.initLiquidMeshAnimation();
+    });
   }
 
   ngOnDestroy() {
     if (this.meshGradientTween) {
       this.meshGradientTween.kill();
     }
+    if (this.tickerFunc) {
+      gsap.ticker.remove(this.tickerFunc);
+    }
+    if (this.lenis) {
+      this.lenis.destroy();
+    }
     ScrollTrigger.getAll().forEach(t => t.kill());
     window.removeEventListener('mousemove', this.mouseMoveListener);
     window.removeEventListener('touchmove', this.touchMoveListener);
     window.removeEventListener('mouseup', this.mouseUpListener);
     window.removeEventListener('touchend', this.touchEndListener);
+    if (this.mouseMoveParallax) {
+      document.removeEventListener('mousemove', this.mouseMoveParallax);
+    }
+  }
+
+  private initAnchorLinks() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const id = (anchor as HTMLAnchorElement).getAttribute('href')?.slice(1);
+        if (id) {
+          const target = document.getElementById(id);
+          if (target) {
+            e.preventDefault();
+            this.lenis?.scrollTo(target, { offset: -100 });
+          }
+        }
+      });
+    });
+  }
+
+  private initLenis() {
+    this.lenis = new Lenis({
+      lerp: 0.1,
+      wheelMultiplier: 1,
+      gestureOrientation: 'vertical',
+      autoRaf: false // CRITICAL: Prevent double-ticking with GSAP ticker
+    });
+
+    this.tickerFunc = (time: number) => {
+      this.lenis?.raf(time * 4000);
+    };
+
+    gsap.ticker.add(this.tickerFunc);
+    gsap.ticker.lagSmoothing(0);
+
+    this.lenis.on('scroll', ScrollTrigger.update);
   }
 
   private updateSlider(x: number) {
@@ -81,17 +145,9 @@ export class App implements AfterViewInit, OnDestroy {
   }
 
   private initHeroParallax() {
-    document.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX / window.innerWidth - 0.5;
-        const mouseY = e.clientY / window.innerHeight - 0.5;
-        
-        gsap.to('#hero-parallax', {
-            duration: 1.5,
-            rotationY: mouseX * 15,
-            rotationX: -mouseY * 15,
-            ease: "power2.out"
-        });
-    });
+    if (this.mouseMoveParallax) {
+      document.addEventListener('mousemove', this.mouseMoveParallax);
+    }
   }
 
   private initRevealAnimations() {
@@ -111,13 +167,48 @@ export class App implements AfterViewInit, OnDestroy {
     });
   }
 
-  private initMeshGradientAnimation() {
-    this.meshGradientTween = gsap.to(".mesh-gradient", {
-        backgroundPosition: "100% 100%",
-        duration: 20,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
+  private initPipelineAnimation() {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#how-it-works",
+        start: "center center",
+        end: "+=1500", // Scroll distance to pin
+        pin: true,
+        scrub: 1, // Smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+      }
+    });
+
+    const steps = gsap.utils.toArray('.pipeline-step');
+    
+    tl.to(steps[0] as Element, { opacity: 1, y: 0, duration: 1 })
+      .to('#pipeline-circle-1', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5")
+      
+      .to('#pipeline-line', { scaleX: 0.5, duration: 2 })
+      
+      .to(steps[1] as Element, { opacity: 1, y: 0, duration: 1 }, "-=0.5")
+      .to('#pipeline-circle-2', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5")
+      
+      .to('#pipeline-line', { scaleX: 1, duration: 2 })
+      
+      .to(steps[2] as Element, { opacity: 1, y: 0, duration: 1 }, "-=0.5")
+      .to('#pipeline-circle-3', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5");
+  }
+
+  private initLiquidMeshAnimation() {
+    const blobs = gsap.utils.toArray('.blob');
+    blobs.forEach((blob) => {
+      this.animateBlob(blob as HTMLElement);
+    });
+  }
+
+  private animateBlob(blob: HTMLElement) {
+    const duration = 10 + Math.random() * 10;
+    gsap.to(blob, {
+      x: () => (Math.random() - 0.5) * 400,
+      y: () => (Math.random() - 0.5) * 400,
+      duration: duration,
+      ease: "sine.inOut",
+      onComplete: () => this.animateBlob(blob)
     });
   }
 }
