@@ -172,25 +172,47 @@ export class App implements AfterViewInit, OnDestroy {
       scrollTrigger: {
         trigger: "#how-it-works",
         start: "center center",
-        end: "+=1500", // Scroll distance to pin
+        end: "+=2000", // Increased scroll distance for better pacing
         pin: true,
-        scrub: 1, // Smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+        scrub: 1,
       }
     });
 
     const steps = gsap.utils.toArray('.pipeline-step');
+    const segment1Paths = gsap.utils.toArray('.segment-1');
+    const segment2Paths = gsap.utils.toArray('.segment-2');
     
+    // Initialize ALL paths to hidden
+    [...segment1Paths, ...segment2Paths].forEach((path: any) => {
+      const length = path.getTotalLength();
+      gsap.set(path, {
+        strokeDasharray: length,
+        strokeDashoffset: length
+      });
+    });
+
+    // SEQUENCE START:
+    
+    // 1. Reveal Step 1
     tl.to(steps[0] as Element, { opacity: 1, y: 0, duration: 1 })
-      .to('#pipeline-circle-1', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5")
-      
-      .to('#pipeline-line', { scaleX: 0.5, duration: 2 })
-      
-      .to(steps[1] as Element, { opacity: 1, y: 0, duration: 1 }, "-=0.5")
-      .to('#pipeline-circle-2', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5")
-      
-      .to('#pipeline-line', { scaleX: 1, duration: 2 })
-      
-      .to(steps[2] as Element, { opacity: 1, y: 0, duration: 1 }, "-=0.5")
+      .to('#pipeline-circle-1', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5");
+
+    // 2. Draw lines from 1 to 2
+    segment1Paths.forEach((path: any) => {
+      tl.to(path, { strokeDashoffset: 0, duration: 3, ease: "power1.inOut" }, "draw-1-to-2");
+    });
+
+    // 3. Reveal Step 2
+    tl.to(steps[1] as Element, { opacity: 1, y: 0, duration: 1 }, ">-0.5") // Start slightly before lines finish
+      .to('#pipeline-circle-2', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5");
+
+    // 4. Draw lines from 2 to 3
+    segment2Paths.forEach((path: any) => {
+      tl.to(path, { strokeDashoffset: 0, duration: 3, ease: "power1.inOut" }, "draw-2-to-3");
+    });
+
+    // 5. Reveal Step 3
+    tl.to(steps[2] as Element, { opacity: 1, y: 0, duration: 1 }, ">-0.5")
       .to('#pipeline-circle-3', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5");
   }
 
@@ -202,10 +224,11 @@ export class App implements AfterViewInit, OnDestroy {
   }
 
   private animateBlob(blob: HTMLElement) {
-    const duration = 10 + Math.random() * 10;
+    const duration = 3 + Math.random() * 4; // 3-7s
     gsap.to(blob, {
-      x: () => (Math.random() - 0.5) * 400,
-      y: () => (Math.random() - 0.5) * 400,
+      x: () => (Math.random() - 0.5) * 600, // Reduced range: 600px
+      y: () => (Math.random() - 0.5) * 600,
+      scale: () => 0.6 + Math.random() * 0.6, // Smaller scale: 0.6-1.2
       duration: duration,
       ease: "sine.inOut",
       onComplete: () => this.animateBlob(blob)
