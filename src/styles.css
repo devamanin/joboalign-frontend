@@ -14,7 +14,7 @@
     html, body {
         overscroll-behavior: none;
     }
-    body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    body { font-family: 'Host Grotesk', sans-serif; overflow-x: hidden; }
     
     html.lenis, html.lenis body {
         height: auto;

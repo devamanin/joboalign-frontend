@@ -62,9 +62,9 @@ module.exports = {
         }
       },
       fontFamily: {
-        "headline": ["Inter", "sans-serif"],
-        "body": ["Inter", "sans-serif"],
-        "label": ["Inter", "sans-serif"],
+        "headline": ["Host Grotesk", "sans-serif"],
+        "body": ["Host Grotesk", "sans-serif"],
+        "label": ["Host Grotesk", "sans-serif"],
         "mono": ["JetBrains Mono", "monospace"]
       }
     },
