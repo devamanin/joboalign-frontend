@@ -144,3 +144,91 @@
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0px); }
 }
+
+
+.glowing-bands-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  /* Use hardware acceleration for container */
+  transform: translateZ(0);
+}
+
+.glowing-band {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  height: 200%;
+  filter: blur(60px);
+  opacity: 0.5;
+  will-change: transform;
+  /* Hardware acceleration for each band */
+  transform: translate3d(-100vw, 0, 0) rotate(25deg);
+}
+
+@keyframes sweep-band {
+  0% { transform: translate3d(-100vw, 0, 0) rotate(25deg); }
+  100% { transform: translate3d(200vw, 0, 0) rotate(25deg); }
+}
+.glowing-band:nth-child(1) {
+  background: rgb(96, 165, 250);
+  width: 10.380969014590391vw;
+  animation: sweep-band 20.29s linear infinite;
+  animation-delay: -17.17s;
+}
+.glowing-band:nth-child(2) {
+  background: rgb(94, 234, 212);
+  width: 11.430309540562972vw;
+  animation: sweep-band 27.72s linear infinite;
+  animation-delay: -22.03s;
+}
+.glowing-band:nth-child(3) {
+  background: rgb(232, 121, 249);
+  width: 12.056564425664869vw;
+  animation: sweep-band 23.83s linear infinite;
+  animation-delay: -24.45s;
+}
+.glowing-band:nth-child(4) {
+  background: rgb(96, 165, 250);
+  width: 11.02591969354558vw;
+  animation: sweep-band 27.72s linear infinite;
+  animation-delay: -21.15s;
+}
+.glowing-band:nth-child(5) {
+  background: rgb(94, 234, 212);
+  width: 12.6840438992824vw;
+  animation: sweep-band 16.85s linear infinite;
+  animation-delay: -14.87s;
+}
+.glowing-band:nth-child(6) {
+  background: rgb(232, 121, 249);
+  width: 12.531062629710949vw;
+  animation: sweep-band 19.61s linear infinite;
+  animation-delay: -13.61s;
+}
+.glowing-band:nth-child(7) {
+  background: rgb(96, 165, 250);
+  width: 19.020444878312716vw;
+  animation: sweep-band 21.51s linear infinite;
+  animation-delay: -24.71s;
+}
+.glowing-band:nth-child(8) {
+  background: rgb(94, 234, 212);
+  width: 9.67371208217952vw;
+  animation: sweep-band 19.91s linear infinite;
+  animation-delay: -29.48s;
+}
+.glowing-band:nth-child(9) {
+  background: rgb(232, 121, 249);
+  width: 11.319985010435822vw;
+  animation: sweep-band 26.76s linear infinite;
+  animation-delay: -5.89s;
+}
+.glowing-band:nth-child(10) {
+  background: rgb(96, 165, 250);
+  width: 8.473674587602627vw;
+  animation: sweep-band 26.31s linear infinite;
+  animation-delay: -7.93s;
+}

@@ -172,18 +172,17 @@ export class App implements AfterViewInit, OnDestroy {
       scrollTrigger: {
         trigger: "#how-it-works",
         start: "center center",
-        end: "+=2000", // Increased scroll distance for better pacing
+        end: "+=2000",
         pin: true,
         scrub: 1,
       }
     });
 
     const steps = gsap.utils.toArray('.pipeline-step');
-    const segment1Paths = gsap.utils.toArray('.segment-1');
-    const segment2Paths = gsap.utils.toArray('.segment-2');
+    const pipelinePaths = gsap.utils.toArray('.pipeline-path');
     
     // Initialize ALL paths to hidden
-    [...segment1Paths, ...segment2Paths].forEach((path: any) => {
+    pipelinePaths.forEach((path: any) => {
       const length = path.getTotalLength();
       gsap.set(path, {
         strokeDasharray: length,
@@ -197,17 +196,18 @@ export class App implements AfterViewInit, OnDestroy {
     tl.to(steps[0] as Element, { opacity: 1, y: 0, duration: 1 })
       .to('#pipeline-circle-1', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5");
 
-    // 2. Draw lines from 1 to 2
-    segment1Paths.forEach((path: any) => {
-      tl.to(path, { strokeDashoffset: 0, duration: 3, ease: "power1.inOut" }, "draw-1-to-2");
+    // 2. Draw first half of paths (Step 1 to 2)
+    pipelinePaths.forEach((path: any) => {
+      const length = path.getTotalLength();
+      tl.to(path, { strokeDashoffset: length * 0.5, duration: 3, ease: "power1.inOut" }, "draw-1-to-2");
     });
 
     // 3. Reveal Step 2
-    tl.to(steps[1] as Element, { opacity: 1, y: 0, duration: 1 }, ">-0.5") // Start slightly before lines finish
+    tl.to(steps[1] as Element, { opacity: 1, y: 0, duration: 1 }, ">-0.5")
       .to('#pipeline-circle-2', { backgroundColor: '#0051d5', color: '#ffffff', borderColor: 'rgba(0, 81, 213, 0.2)', duration: 0.5 }, "-=0.5");
 
-    // 4. Draw lines from 2 to 3
-    segment2Paths.forEach((path: any) => {
+    // 4. Draw second half of paths (Step 2 to 3)
+    pipelinePaths.forEach((path: any) => {
       tl.to(path, { strokeDashoffset: 0, duration: 3, ease: "power1.inOut" }, "draw-2-to-3");
     });
 
