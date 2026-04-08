@@ -146,6 +146,11 @@
 }
 
 
+#auth-left, #auth-right {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
 .glowing-bands-container {
   position: absolute;
   inset: 0;

@@ -15,9 +15,9 @@
         href="#pricing">Pricing</a>
     </div>
     <div class="flex items-center gap-4">
-      <button
-        class="secondary-gradient text-white px-7 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase hover:shadow-lg hover:shadow-secondary/30 transition-all transform active:scale-95">Try
-        Now</button>
+      <a routerLink="/signup"
+        class="secondary-gradient text-white px-7 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase hover:shadow-lg hover:shadow-secondary/30 transition-all transform active:scale-95 cursor-pointer">Try
+        Now</a>
     </div>
   </div>
 </nav>
@@ -53,10 +53,10 @@
         Stop getting filtered out by automated systems. Our architect re-aligns your experience to perfectly match top-tier job descriptions, powered by our proprietary in-house LLM.
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-8 pt-4">
-        <button
-          class="secondary-gradient text-white px-10 py-5 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-secondary/40 transition-all transform hover:-translate-y-1">
+        <a routerLink="/signup" [queryParams]="{plan: 'free'}"
+          class="secondary-gradient text-white px-10 py-5 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-secondary/40 transition-all transform hover:-translate-y-1 cursor-pointer">
           Optimize My Resume
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -175,11 +175,9 @@
   </div>
 </section>
 
-<!-- How It Works -->
 <section class="py-40 bg-slate-900 relative z-10" id="how-it-works">
-<!-- <section class="py-40 bg-surface-container-low relative z-10" id="how-it-works"> -->
   <div class="max-w-7xl mx-auto px-8" id="pipeline-container">
-    <h2 class="text-4xl font-bold tracking-tight text-center mb-32 uppercase tracking-[0.2em] opacity-30">How it works?</h2>
+    <h2 class="text-4xl font-bold tracking-tight text-center mb-32 uppercase tracking-[0.2em] opacity-100 text-white">How it works?</h2>
     <div class="grid md:grid-cols-3 gap-16 relative">
       <!-- Winding Organic Connector Lines (Node to Node) -->
       <div class="hidden md:block absolute top-[-83px] left-[16.66%] w-[66.66%] h-[240px] z-0 pointer-events-none">
@@ -220,7 +218,7 @@
           />
         </svg>
       </div>
-      <div class="pipeline-step relative z-10 text-center space-y-10 opacity-0 translate-y-10 will-change-transform text-white">
+      <div class="pipeline-step relative z-10 text-center space-y-10 text-white">
         <div id="pipeline-circle-1"
           class="w-28 h-28 rounded-full bg-white text-slate-900 flex items-center justify-center mx-auto text-3xl font-black border-4 border-slate-50 premium-shadow transition-colors duration-500">
           01</div>
@@ -229,7 +227,7 @@
           <p class="text-slate-300 font-medium">Upload your existing resume. We instantly read and extract all your skills and experience.</p>
         </div>
       </div>
-      <div class="pipeline-step relative z-10 text-center space-y-10 opacity-0 translate-y-10 will-change-transform text-white">
+      <div class="pipeline-step relative z-10 text-center space-y-10 text-white">
         <div id="pipeline-circle-2"
           class="w-28 h-28 rounded-full bg-white text-slate-900 flex items-center justify-center mx-auto text-3xl font-black border-4 border-slate-50 premium-shadow transition-colors duration-500">
           02</div>
@@ -238,7 +236,7 @@
           <p class="text-slate-300 font-medium">Paste the job description. Our AI naturally rewrites your resume to perfectly fit what they're looking for.</p>
         </div>
       </div>
-      <div class="pipeline-step relative z-10 text-center space-y-10 opacity-0 translate-y-10 will-change-transform text-white">
+      <div class="pipeline-step relative z-10 text-center space-y-10 text-white">
         <div id="pipeline-circle-3"
           class="w-28 h-28 rounded-full bg-white text-slate-900 flex items-center justify-center mx-auto text-3xl font-black border-4 border-slate-50 premium-shadow transition-colors duration-500">
           03</div>
@@ -335,7 +333,8 @@
         </li>
       </ul>
       <button
-        class="w-full py-3 rounded-lg text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 transition-colors">Get
+        routerLink="/signup" [queryParams]="{plan: 'free'}"
+        class="w-full py-3 rounded-lg text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer">Get
         Started</button>
     </div>
     <!-- Pro Tier -->
@@ -367,7 +366,8 @@
         </li>
       </ul>
       <button
-        class="w-full py-3 rounded-lg text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 transition-colors shadow-sm">Upgrade
+        routerLink="/signup" [queryParams]="{plan: 'pro'}"
+        class="w-full py-3 rounded-lg text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 transition-colors shadow-sm cursor-pointer">Upgrade
         to Pro</button>
     </div>
   </div>
@@ -394,7 +394,8 @@
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
         <button
-          class="w-full sm:w-auto bg-white text-slate-900 px-8 py-4 rounded-lg font-bold text-base hover:bg-slate-50 transition-colors shadow-xl transform hover:-translate-y-1">
+          routerLink="/signup" [queryParams]="{plan: 'free'}"
+          class="w-full sm:w-auto bg-white text-slate-900 px-8 py-4 rounded-lg font-bold text-base hover:bg-slate-50 transition-colors shadow-xl transform hover:-translate-y-1 cursor-pointer">
           Get Started Free
         </button>
       </div>
